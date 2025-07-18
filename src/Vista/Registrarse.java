@@ -22,7 +22,7 @@ public class Registrarse extends JFrame {
     public Registrarse() {
         setTitle("Registrarse");
         setSize(500, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
         agregarPanel();       
@@ -35,7 +35,7 @@ public class Registrarse extends JFrame {
         
         //Titulo
         JLabel titulo = new JLabel();
-        titulo.setText("Comedor Universitario"); // texto que se muestra en la etiqueta");
+        titulo.setText("Comedor Universitario"); // texto que se muestra en la etiqueta
         titulo.setBounds(0,40,500,20); // centrado horizontalmente
         titulo.setHorizontalAlignment(SwingConstants.CENTER); // establecer en el centro de la etiqueta el texto
         titulo.setForeground(Color.BLACK); // color de la letra
@@ -62,6 +62,13 @@ public class Registrarse extends JFrame {
         subTitulo2.setFont(new Font("Arial", Font.PLAIN, 15)); // cambia el tamaño y tipo de fuente
         panel.add(subTitulo2);
 
+        // Pie de página
+        JLabel piePagina = new JLabel("2025 UCV");
+        piePagina.setBounds(0, 530, 500, 30); // centrado en la parte inferior
+        piePagina.setHorizontalAlignment(SwingConstants.CENTER);
+        piePagina.setForeground(Color.GRAY);
+        piePagina.setFont(new Font("Arial", Font.PLAIN, 12));
+        panel.add(piePagina);
 
         //Caja de texto
         agregarCorreo();
@@ -148,14 +155,14 @@ public class Registrarse extends JFrame {
         cajaTextoCedula.setForeground(Color.GRAY);
         cajaTextoCedula.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent e) {
-                if (cajaTextoCedula.getText().equals("Cedula")) {
+                if (cajaTextoCedula.getText().equals(" Cedula")) {
                     cajaTextoCedula.setText("");
                     cajaTextoCedula.setForeground(Color.BLACK);
                 }
             }
             public void focusLost(java.awt.event.FocusEvent e) {
                 if (cajaTextoCedula.getText().isEmpty()) {
-                    cajaTextoCedula.setText("Cedula");
+                    cajaTextoCedula.setText(" Cedula");
                     cajaTextoCedula.setForeground(Color.GRAY);
                 }
             }
@@ -206,6 +213,22 @@ public class Registrarse extends JFrame {
         botonContinuar.addActionListener(controlador);
         botonContinuarAdmin.addActionListener(controlador);
         botonInicioSesion.addActionListener(controlador);   
+    }
+
+    public String getCorreo() {
+        return cajaTextoCorreo.getText();
+    }
+
+    public String getContrasena() {
+        return cajaTextoContrasena.getText();
+    }
+
+    public String getNombreCompleto() {
+        return cajaTextoNombreCompleto.getText();
+    }
+
+    public String getCedula() {
+        return cajaTextoCedula.getText();
     }
 
 }

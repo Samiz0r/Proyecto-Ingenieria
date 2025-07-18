@@ -33,6 +33,14 @@ public class VerMonedero extends JFrame {
         titulo.setFont(new Font("Arial", Font.BOLD, 20));
         panel.add(titulo);
 
+        // Pie de página
+        JLabel piePagina = new JLabel("2025 UCV");
+        piePagina.setBounds(0, 530, 500, 30); // centrado en la parte inferior
+        piePagina.setHorizontalAlignment(SwingConstants.CENTER);
+        piePagina.setForeground(Color.GRAY);
+        piePagina.setFont(new Font("Arial", Font.PLAIN, 12));
+        panel.add(piePagina);
+
         // Saldo
         labelSaldo = new JLabel("<html>Saldo Disponible:<br><span style='font-size:36px;'>$0.00</span></html>");
         labelSaldo.setBounds(0, 110, 500, 80); // aumento la altura para que no se corte
@@ -40,17 +48,22 @@ public class VerMonedero extends JFrame {
         labelSaldo.setFont(new Font("Arial", Font.BOLD, 28)); // título grande
         panel.add(labelSaldo);
 
-        // Botón de volver
-        botonVolver = new JButton("Volver");    
-        botonVolver.setBounds(80, 500, 120, 30);
+        // Botón de volver con icono ajustado en la esquina superior izquierda
+        ImageIcon iconoOriginal = new ImageIcon("recursos/volveratras.png");
+        Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+        ImageIcon iconoVolver = new ImageIcon(imagenEscalada);
+        botonVolver = new JButton(iconoVolver);
+        botonVolver.setBounds(10, 10, 40, 40); // esquina superior izquierda
         botonVolver.setActionCommand("VOLVER");
         botonVolver.setBackground(Color.BLACK);
-        botonVolver.setForeground(Color.WHITE); // letras blancas
+        botonVolver.setBorderPainted(false); // sin borde
+        botonVolver.setFocusPainted(false);  // sin borde de foco
+        botonVolver.setContentAreaFilled(false); // fondo transparente
         panel.add(botonVolver);
 
         // Botón de recargar saldo
         botonRecargar = new JButton("Recargar saldo");
-        botonRecargar.setBounds(250, 500, 170, 30); // más ancho y ajustado a la derecha
+        botonRecargar.setBounds(165, 470, 170, 30); // centrado horizontalmente (500-170)/2=165
         botonRecargar.setActionCommand("RECARGAR");
         botonRecargar.setBackground(Color.BLACK); // negro
         botonRecargar.setForeground(Color.WHITE);

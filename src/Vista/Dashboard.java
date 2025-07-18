@@ -49,6 +49,14 @@ public class Dashboard extends JFrame {
         subTitulo.setFont(new Font("Arial", Font.BOLD, 17)); // cambia el tamaño y tipo de fuente
         panel.add(subTitulo);
 
+        // Pie de página
+        JLabel piePagina = new JLabel("2025 UCV");
+        piePagina.setBounds(0, 530, 500, 30); // centrado en la parte inferior
+        piePagina.setHorizontalAlignment(SwingConstants.CENTER);
+        piePagina.setForeground(Color.GRAY);
+        piePagina.setFont(new Font("Arial", Font.PLAIN, 12));
+        panel.add(piePagina);
+
         // Agregar botones
         agregarBotonVerMonedero();
         agregarBotonConsultarMenu();

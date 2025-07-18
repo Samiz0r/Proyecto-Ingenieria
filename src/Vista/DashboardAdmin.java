@@ -1,5 +1,7 @@
 package Vista;
 
+import java.awt.event.ActionListener;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -18,7 +20,7 @@ public class DashboardAdmin extends JFrame {
     public DashboardAdmin() {
         setTitle("Menú de Administrador");
         setSize(500, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
         agregarPanel();
@@ -36,15 +38,27 @@ public class DashboardAdmin extends JFrame {
         titulo.setHorizontalAlignment(SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 20));
         panel.add(titulo);
+
+        // Pie de página
+        JLabel piePagina = new JLabel("2025 UCV");
+        piePagina.setBounds(0, 530, 500, 30); // centrado en la parte inferior
+        piePagina.setHorizontalAlignment(SwingConstants.CENTER);
+        piePagina.setForeground(Color.GRAY);
+        piePagina.setFont(new Font("Arial", Font.PLAIN, 12));
+        panel.add(piePagina);
         
         agregarSubtitulo();
-        agregarBotonCalcularCCB();
-        agregarBotonGestionarInsumos();
-        agregarBotonGestionarMenu();
-        agregarBotonEstablecerTurnos();
-        agregarBotonCalcularConsumo();
-        agregarBotonGenerarReporte();
-        agregarBotonIngresoTarifa();
+        int y = 130; // posición inicial debajo del subtítulo
+        int altura = 40; // altura de cada botón
+        int espacio = 15; // espacio entre botones
+
+        agregarBotonGestionarInsumos(y); y += altura + espacio;
+        agregarBotonGestionarMenu(y); y += altura + espacio;
+        agregarBotonEstablecerTurnos(y); y += altura + espacio;
+        agregarBotonCalcularConsumo(y); y += altura + espacio;
+        agregarBotonGenerarReporte(y); y += altura + espacio;
+        agregarBotonCalcularCCB(y); y += altura + espacio;
+        agregarBotonIngresoTarifa(y);
     }
     
     private void agregarSubtitulo(){
@@ -57,73 +71,77 @@ public class DashboardAdmin extends JFrame {
         panel.add(subTitulo);
     }
 
-    private void agregarBotonCalcularCCB(){
+    private void agregarBotonCalcularCCB(int y){
         botonCalcularCCB = new JButton("Calcular CCB");
-        botonCalcularCCB.setBounds(75,450,350,30); // mismo ancho que las cajas de texto
+        botonCalcularCCB.setBounds(75, y, 350, 40);
         botonCalcularCCB.setActionCommand("CALCULAR_CCB");
         botonCalcularCCB.setBackground(Color.BLACK);
-        botonCalcularCCB.setForeground(Color.WHITE); // fondo
+        botonCalcularCCB.setForeground(Color.WHITE);
         panel.add(botonCalcularCCB);
     }
 
-    private void agregarBotonGestionarInsumos(){
+    private void agregarBotonGestionarInsumos(int y){
         botonGestionarInsumos = new JButton("Gestionar Insumos");
-        botonGestionarInsumos.setBounds(75,150,350,30); // mismo ancho que las cajas de texto
+        botonGestionarInsumos.setBounds(75, y, 350, 40);
         botonGestionarInsumos.setActionCommand("GESTIONAR_INSUMOS");
         botonGestionarInsumos.setBackground(Color.BLACK);
-        botonGestionarInsumos.setForeground(Color.WHITE); // fondo
+        botonGestionarInsumos.setForeground(Color.WHITE);
         panel.add(botonGestionarInsumos);
     }
 
-    private void agregarBotonGestionarMenu(){
+    private void agregarBotonGestionarMenu(int y){
         botonGestionarMenu = new JButton("Gestionar Menú");
-        botonGestionarMenu.setBounds(75,210,350,30); // mismo ancho que las cajas de texto
+        botonGestionarMenu.setBounds(75, y, 350, 40);
         botonGestionarMenu.setActionCommand("GESTIONAR_MENU");
         botonGestionarMenu.setBackground(Color.BLACK);
-        botonGestionarMenu.setForeground(Color.WHITE); // fondo
+        botonGestionarMenu.setForeground(Color.WHITE);
         panel.add(botonGestionarMenu);
     }
 
-    private void agregarBotonEstablecerTurnos(){
+    private void agregarBotonEstablecerTurnos(int y){
         botonEstablecerTurnos = new JButton("Establecer Turnos");
-        botonEstablecerTurnos.setBounds(75,270,350,30); // mismo ancho que las cajas de texto
+        botonEstablecerTurnos.setBounds(75, y, 350, 40);
         botonEstablecerTurnos.setActionCommand("ESTABLECER_TURNOS");
         botonEstablecerTurnos.setBackground(Color.BLACK);
-        botonEstablecerTurnos.setForeground(Color.WHITE); // fondo
+        botonEstablecerTurnos.setForeground(Color.WHITE);
         panel.add(botonEstablecerTurnos);
     }
 
-    private void agregarBotonCalcularConsumo(){
+    private void agregarBotonCalcularConsumo(int y){
         botonCalcularConsumo = new JButton("Calcular Consumo");
-        botonCalcularConsumo.setBounds(75,330,350,30); // mismo ancho que las cajas de texto
+        botonCalcularConsumo.setBounds(75, y, 350, 40);
         botonCalcularConsumo.setActionCommand("CALCULAR_CONSUMO");
         botonCalcularConsumo.setBackground(Color.BLACK);
-        botonCalcularConsumo.setForeground(Color.WHITE); // fondo
+        botonCalcularConsumo.setForeground(Color.WHITE);
         panel.add(botonCalcularConsumo);
     }
 
-    private void agregarBotonGenerarReporte(){
+    private void agregarBotonGenerarReporte(int y){
         botonGenerarReporte = new JButton("Generar Reporte");
-        botonGenerarReporte.setBounds(75,390,350,30); // mismo ancho que las cajas de texto
+        botonGenerarReporte.setBounds(75, y, 350, 40);
         botonGenerarReporte.setActionCommand("GENERAR_REPORTE");
         botonGenerarReporte.setBackground(Color.BLACK);
-        botonGenerarReporte.setForeground(Color.WHITE); // fondo
+        botonGenerarReporte.setForeground(Color.WHITE);
         panel.add(botonGenerarReporte);
     }
 
-    private void agregarBotonIngresoTarifa() {
+    private void agregarBotonIngresoTarifa(int y) {
         botonIngresoTarifa = new JButton("Ingreso de Tarifa");
-        botonIngresoTarifa.setBounds(75, 510, 350, 30);
-        botonIngresoTarifa.addActionListener(e -> dispose());
+        botonIngresoTarifa.setBounds(75, y, 350, 40);
         botonIngresoTarifa.setBackground(Color.BLACK);
-        botonIngresoTarifa.setForeground(Color.WHITE); // letras blancas
+        botonIngresoTarifa.setForeground(Color.WHITE);
         panel.add(botonIngresoTarifa);
     }
-    
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            DashboardAdmin dashboardAdmin = new DashboardAdmin();
-            dashboardAdmin.setVisible(true);
-        });
+
+    public void setControlador(ActionListener controlador) {
+        // Set the controller for the buttons
+        botonCalcularCCB.addActionListener(controlador);
+        botonGestionarInsumos.addActionListener(controlador);
+        botonGestionarMenu.addActionListener(controlador);
+        botonEstablecerTurnos.addActionListener(controlador);
+        botonCalcularConsumo.addActionListener(controlador);
+        botonGenerarReporte.addActionListener(controlador);
+        botonIngresoTarifa.addActionListener(controlador);
     }
+    
 }

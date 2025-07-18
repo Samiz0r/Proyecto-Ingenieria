@@ -9,9 +9,10 @@ public class InicioSesion extends JFrame {
 
     JPanel panel;
     JTextField cajaTextoCorreo;
-    JTextField cajaTextoContrasena;
+    JTextField cajaTextoContrasena;  
     JButton botonContinuar;
     JButton botonRegistrarse;
+    JButton botonContinuarAdmin;
 
     public InicioSesion(){
         setTitle("Inicio Sesion");
@@ -55,12 +56,21 @@ public class InicioSesion extends JFrame {
         subTitulo2.setForeground(Color.BLACK); // color de la letra
         subTitulo2.setFont(new Font("Arial", Font.PLAIN, 15)); // cambia el tamaño y tipo de fuente
         panel.add(subTitulo2);
+
+        // Pie de página
+        JLabel piePagina = new JLabel("2025 UCV");
+        piePagina.setBounds(0, 530, 500, 30); // centrado en la parte inferior
+        piePagina.setHorizontalAlignment(SwingConstants.CENTER);
+        piePagina.setForeground(Color.GRAY);
+        piePagina.setFont(new Font("Arial", Font.PLAIN, 12));
+        panel.add(piePagina);
  
 
         agregarCorreo();
         agregarContrasena();
 
         agregarBotonContinuar();
+        agregarBotonContinuarAdmin();
         agregarSeparador();
         agregarBotonRegistrarse();
 
@@ -118,9 +128,18 @@ public class InicioSesion extends JFrame {
         panel.add(botonContinuar);
     }
 
+     private void agregarBotonContinuarAdmin() {
+        botonContinuarAdmin = new JButton("Continuar como Administrador");
+        botonContinuarAdmin.setBounds(75, 270, 350, 30);
+        botonContinuarAdmin.setActionCommand("CONTINUAR_ADMIN");
+        botonContinuarAdmin.setBackground(new Color(60,60,60));
+        botonContinuarAdmin.setForeground(Color.WHITE);
+        panel.add(botonContinuarAdmin);
+    }
+
     private void agregarSeparador(){
         JSeparator separador = new JSeparator();
-        separador.setBounds(75,270,350,2); // mismo ancho que las cajas de texto, centrado
+        separador.setBounds(75,310,350,2); // mismo ancho que las cajas de texto, centrado
         separador.setBackground(new Color(220,220,220)); // gris muy claro
         separador.setForeground(new Color(220,220,220)); // gris muy claro
         panel.add(separador);
@@ -128,7 +147,7 @@ public class InicioSesion extends JFrame {
 
     private void agregarBotonRegistrarse(){
         botonRegistrarse = new JButton("<html>¿Aún no tienes una cuenta?<br><div style='text-align:center;'>Regístrate</div></html>");
-        botonRegistrarse.setBounds(75,285,350,40); // ajusto la posición para dejar espacio al separador
+        botonRegistrarse.setBounds(75,325,350,40); // ajusto la posición para dejar espacio al separador
         botonRegistrarse.setActionCommand("REGISTRARSE");
         botonRegistrarse.setBackground(new Color(220,220,220)); // gris claro
         botonRegistrarse.setForeground(Color.BLACK); // letras negras
@@ -138,10 +157,28 @@ public class InicioSesion extends JFrame {
         panel.add(botonRegistrarse);
     }
 
-     public void setControlador(ActionListener controlador) {
+    public void setControlador(ActionListener controlador) {
         // Set the controller for the buttons
         botonContinuar.addActionListener(controlador);
+        botonContinuarAdmin.addActionListener(controlador);
         botonRegistrarse.addActionListener(controlador);
+
+    }
+
+    public String getCorreoAdmin() {
+        return cajaTextoCorreo.getText().trim();
+    }
+
+    public String getContrasenaAdmin() {
+        return cajaTextoContrasena.getText().trim();
+    }
+
+    public String getCorreo() {
+        return cajaTextoCorreo.getText().trim();
+    }
+
+    public String getContrasena() {
+        return cajaTextoContrasena.getText().trim();
     }
     
 }   

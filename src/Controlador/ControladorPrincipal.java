@@ -20,18 +20,34 @@ public class ControladorPrincipal implements ActionListener {
         String comando = e.getActionCommand();
 
         switch (comando) {
-            case "CONTINUAR":
-                
-                vistaInicioSesion.setVisible(false);
-                new DashboardController();
+            case "CONTINUAR": {
+                String correo = vistaInicioSesion.getCorreo();
+                String contrasena = vistaInicioSesion.getContrasena();
+                Modelo.Usuarios usuarios = new Modelo.Usuarios();
+                if (usuarios.autenticarUsuario(correo, contrasena)) {
+                    vistaInicioSesion.setVisible(false);
+                    new DashboardController();
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos", "Error de inicio de sesión", javax.swing.JOptionPane.ERROR_MESSAGE);
+                }
                 break;
-
+            }
+            case "CONTINUAR_ADMIN": {
+                String correoAdmin = vistaInicioSesion.getCorreoAdmin();
+                String contrasenaAdmin = vistaInicioSesion.getContrasenaAdmin();
+                Modelo.Administradores administradores = new Modelo.Administradores();
+                if (administradores.autenticarAdministrador(correoAdmin, contrasenaAdmin)) {
+                    vistaInicioSesion.setVisible(false);
+                    new DashboardAdminController();
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Correo o contraseña de administrador incorrectos", "Error de inicio de sesión", javax.swing.JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            }
             case "REGISTRARSE":
-
                 vistaInicioSesion.setVisible(false);
                 new RegistrarseController();
                 break;
-
             default:
                 break;
         }
