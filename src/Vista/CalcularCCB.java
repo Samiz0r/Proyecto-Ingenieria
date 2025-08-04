@@ -17,6 +17,8 @@ public class CalcularCCB extends JFrame {
 
     JButton botonCalcular;
     JButton botonVolver;
+    JLabel labelCCBActual;
+    JLabel labelFechaCCB;
     
     public CalcularCCB() {
         setTitle("Calcular CCB");
@@ -34,7 +36,6 @@ public class CalcularCCB extends JFrame {
         this.getContentPane().add(panel);
         
         // Título
-        
         JLabel titulo = new JLabel("Calcular CCB");
         titulo.setBounds(0, 40, 500, 20);
         titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -42,7 +43,6 @@ public class CalcularCCB extends JFrame {
         panel.add(titulo);
 
         // Subtítulo
-
         JLabel subTitulo = new JLabel("Ingrese los datos necesarios para calcular el CCB");
         subTitulo.setBounds(0, 90, 500, 20); // centrado horizontalmente
         subTitulo.setHorizontalAlignment(SwingConstants.CENTER); // establecer en el centro de la etiqueta el texto
@@ -58,9 +58,24 @@ public class CalcularCCB extends JFrame {
         piePagina.setFont(new Font("Arial", Font.PLAIN, 12));
         panel.add(piePagina);
 
+        agregarCCBActual();
         agregarEtiquetas();
         agregarTextField();
         colocarBotones();
+    }
+
+    private void agregarCCBActual() {
+        labelCCBActual = new JLabel("CCB Actual: -");
+        labelCCBActual.setBounds(50, 420, 400, 25);
+        labelCCBActual.setFont(new Font("Arial", Font.BOLD, 16));
+        labelCCBActual.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(labelCCBActual);
+
+        labelFechaCCB = new JLabel("Fecha última actualización: -");
+        labelFechaCCB.setBounds(50, 445, 400, 20);
+        labelFechaCCB.setFont(new Font("Arial", Font.PLAIN, 13));
+        labelFechaCCB.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(labelFechaCCB);
     }
 
     private void agregarEtiquetas() {
@@ -112,7 +127,7 @@ public class CalcularCCB extends JFrame {
 
     private void colocarBotones() {
         botonCalcular = new JButton("Calcular");
-        botonCalcular.setBounds(165, 460, 170, 30); // centrado horizontalmente (500-170)/2=165
+        botonCalcular.setBounds(165, 470, 170, 30); // debajo de los labels
         botonCalcular.setForeground(Color.WHITE); // letras blancas
         botonCalcular.setBackground(Color.BLACK); // fondo negro 
         botonCalcular.setActionCommand("CALCULAR");
@@ -137,10 +152,27 @@ public class CalcularCCB extends JFrame {
         botonCalcular.addActionListener(controlador);
         botonVolver.addActionListener(controlador);
     }
-    
-    // Métodos para calcular CCB 
-    public double calcularCostoCCB(double precioPorComida, int numeroDeComidas) {
-        return precioPorComida * numeroDeComidas;
+
+    public double calcularCCB(double cf, double cv, int nb, double merma) {
+        return ((cf + cv) / nb) * (1 + merma);
     }
 
+    public JTextField getCajaPeriodo() { return cajaPeriodo; }
+    public JTextField getCajaCostosFijos() { return cajaCostosFijos; }
+    public JTextField getCajaCostosVariados() { return cajaCostosVariados; }
+    public JTextField getCajaNBandejas() { return cajaNBandejas; }
+    public JTextField getCajaMerma() { return cajaMerma; }
+
+    public void actualizarCCBEnPantalla(double ccb, String fecha) {
+        labelCCBActual.setText("CCB Actual: " + String.format("%.2f", ccb) + " Bs");
+        labelFechaCCB.setText("Fecha última actualización: " + fecha);
+    }
+
+    public void limpiarCampos() {
+        cajaPeriodo.setText("");
+        cajaCostosFijos.setText("");
+        cajaCostosVariados.setText("");
+        cajaNBandejas.setText("");
+        cajaMerma.setText("");
+    }
 }

@@ -4,6 +4,65 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Usuarios {
+    public String getCedula(String correo) {
+        try (Scanner scanner = new Scanner(new File(listadoDataUsuarios))) {
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine();
+                String[] datos = linea.split(";");
+                if (datos.length >= 4 && datos[0].equals(correo)) {
+                    return datos[3];
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    // Obtener el saldo de un usuario por correo
+    public double getSaldoUsuario(String correo) {
+        try (Scanner scanner = new Scanner(new File(listadoDataUsuarios))) {
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine();
+                String[] datos = linea.split(";");
+                if (datos.length >= 5 && datos[0].equals(correo)) {
+                    return Double.parseDouble(datos[4]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    // Actualizar el saldo de un usuario por cédula (único método de actualización)
+    public boolean actualizarSaldoPorCedula(String cedula, double nuevoSaldo) {
+        File file = new File(listadoDataUsuarios);
+        StringBuilder sb = new StringBuilder();
+        boolean actualizado = false;
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine();
+                String[] datos = linea.split(";");
+                if (datos.length >= 5 && datos[3].equals(cedula)) {
+                    datos[4] = String.valueOf(nuevoSaldo);
+                    linea = String.join(";", datos);
+                    actualizado = true;
+                }
+                sb.append(linea).append("\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        // Escribir el archivo actualizado
+        try (FileWriter writer = new FileWriter(file, false)) {
+            writer.write(sb.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return actualizado;
+    }
     private String listadoDataUsuarios;
     
     public Usuarios() {
@@ -75,6 +134,21 @@ public class Usuarios {
             System.out.println("Archivo no encontrado.");
         }
         return false; // No coincide
+    }
+
+    public String getNombreCompleto(String correo) {
+        try (Scanner scanner = new Scanner(new File(listadoDataUsuarios))) {
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine();
+                String[] datos = linea.split(";");
+                if (datos.length >= 3 && datos[0].equals(correo)) {
+                    return datos[2];
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

@@ -1,2 +1,6 @@
-jose@gmail.com;losloritoscorren;Jose Gregorio;345678
-mariayahoo;tu y yo;maria peres;54321
+jose@gmail.com;losloritoscorren;Jose Gregorio;1;14.1479951724138
+mariayahoo;tu y yo;maria peres;12;0
+a@b.com;123;pp veraz;123;0
+fati@gmail.com;345;Fatima Sanz;1234;0
+Fat@gmail;345;FS;123456;0
+maria@hotmail.com;123;maria guevara;321567;0

@@ -69,4 +69,51 @@ public class Administradores {
         }
         return false; // No coincide
     }
+
+    public String getNombreCompleto(String correo) {
+        try (Scanner scanner = new Scanner(new File(listadoDataAdministradores))) {
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine();
+                String[] datos = linea.split(";");
+                if (datos.length >= 3 && datos[0].equals(correo)) {
+                    return datos[2];
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public boolean guardarCCB(String periodo, double cf, double cv, int nb, double merma, double ccb) {
+        String ruta = "Data/dataCCB.txt";
+        try {
+            File file = new File(ruta);
+            file.getParentFile().mkdirs();
+            FileWriter writer = new FileWriter(file, true);
+            writer.write(periodo + ";" + cf + ";" + cv + ";" + nb + ";" + merma + ";" + ccb + "\n");
+            writer.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean guardarMenus(String nombreDesayuno, String descripcionDesayuno, String nombreAlmuerzo, String descripcionAlmuerzo) {
+        String ruta = "Data/dataMenus.txt";
+        try {
+            File file = new File(ruta);
+            file.getParentFile().mkdirs();
+            FileWriter writer = new FileWriter(file, true);
+            writer.write(nombreDesayuno + ";" + descripcionDesayuno + ";" + nombreAlmuerzo + ";" + descripcionAlmuerzo + "\n");
+            writer.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
+    

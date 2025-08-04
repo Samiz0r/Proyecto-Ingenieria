@@ -5,16 +5,16 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
 
-
-public class Dashboard extends JFrame {
+public class Dashboard extends JFrame {    
 
     JPanel panel;
     JButton botonVerMonedero;
     JButton botonConsultarMenu;
-    JButton botonrRealizarReserva;
     JButton botonCancelarReservas;
     JButton botonSeleccionarTurnoComida;
-    JButton botonRegistroConsumo;
+    JButton botonCerrarSesion;
+    JButton botonEscaner;
+    private String nombreUsuario;
 
     public Dashboard() {
         setTitle("Menú Comensal");
@@ -26,13 +26,14 @@ public class Dashboard extends JFrame {
     }
 
     private void agregarPanel() {
+
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
         
         //Titulo
         JLabel titulo = new JLabel();
-        titulo.setText("¡Bienvenidos!"); // texto que se muestra en la etiqueta");
+        titulo.setText("¡Bienvenido!"); // texto que se muestra en la etiqueta");
         titulo.setBounds(0,40,500,20); // centrado horizontalmente
         titulo.setHorizontalAlignment(SwingConstants.CENTER); // establecer en el centro de la etiqueta el texto
         titulo.setForeground(Color.BLACK); // color de la letra
@@ -60,76 +61,98 @@ public class Dashboard extends JFrame {
         // Agregar botones
         agregarBotonVerMonedero();
         agregarBotonConsultarMenu();
-        agregarBotonRealizarReserva();
         agregarBotonCancelarReservas();
-        agregarBotonSeleccionarTurnoComida();
-        agregarBotonRegistroConsumo();        
+        agregarBotonSeleccionarTurnoComida(); 
+        agregarBotonCerrarSesion();
+        agregarBotonEscaner();
     }
-
-   
 
     private void agregarBotonVerMonedero(){
         botonVerMonedero = new JButton("Ver Monedero");
-        botonVerMonedero.setBounds(75,150,350,30); // mismo ancho que las cajas de texto
+        botonVerMonedero.setBounds(75,150,350,30); // Primer botón
         botonVerMonedero.setActionCommand("VER_MONEDERO");
         botonVerMonedero.setBackground(Color.BLACK);
-        botonVerMonedero.setForeground(Color.WHITE); // fondo
+        botonVerMonedero.setForeground(Color.WHITE);
         panel.add(botonVerMonedero);
     }
 
     private void agregarBotonConsultarMenu(){
         botonConsultarMenu = new JButton("Consultar Menú");
-        botonConsultarMenu.setBounds(75,210,350,30); // mismo ancho que las cajas de texto
+        botonConsultarMenu.setBounds(75,230,350,30); // +80px de separación
         botonConsultarMenu.setActionCommand("CONSULTAR_MENU");
-        botonConsultarMenu.setBackground(Color.BLACK); // fondo negro
-        botonConsultarMenu.setForeground(Color.WHITE); // letras blancas
+        botonConsultarMenu.setBackground(Color.BLACK);
+        botonConsultarMenu.setForeground(Color.WHITE);
         panel.add(botonConsultarMenu);
-    }
-
-    private void agregarBotonRealizarReserva(){
-        botonrRealizarReserva = new JButton("Realizar Reserva");
-        botonrRealizarReserva.setBounds(75,270,350,30); // mismo ancho que las cajas de texto
-        botonrRealizarReserva.setActionCommand("REALIZAR_RESERVA");
-        botonrRealizarReserva.setBackground(Color.BLACK);
-        botonrRealizarReserva.setForeground(Color.WHITE); // letras blancas
-        panel.add(botonrRealizarReserva);
     }
 
     private void agregarBotonCancelarReservas(){
         botonCancelarReservas = new JButton("Cancelar Reservas");
-        botonCancelarReservas.setBounds(75,330,350,30); // mismo ancho que las cajas de texto
+        botonCancelarReservas.setBounds(75,310,350,30); // +80px de separación
         botonCancelarReservas.setActionCommand("CANCELAR_RESERVAS");
         botonCancelarReservas.setBackground(Color.BLACK);
-        botonCancelarReservas.setForeground(Color.WHITE); // letras blancas
+        botonCancelarReservas.setForeground(Color.WHITE);
         panel.add(botonCancelarReservas);
     }
 
     private void agregarBotonSeleccionarTurnoComida(){
         botonSeleccionarTurnoComida = new JButton("Seleccionar Turno de Comida");
-        botonSeleccionarTurnoComida.setBounds(75,390,350,30); // mismo ancho que las cajas de texto
+        botonSeleccionarTurnoComida.setBounds(75,390,350,30); // +80px de separación
         botonSeleccionarTurnoComida.setActionCommand("SELECCIONAR_TURNO_COMIDA");
         botonSeleccionarTurnoComida.setBackground(Color.BLACK);
-        botonSeleccionarTurnoComida.setForeground(Color.WHITE); // letras blancas
+        botonSeleccionarTurnoComida.setForeground(Color.WHITE);
         panel.add(botonSeleccionarTurnoComida);
     }
 
-    private void agregarBotonRegistroConsumo(){
-        botonRegistroConsumo = new JButton("Registro de Consumo");
-        botonRegistroConsumo.setBounds(75,450,350,30); // mismo ancho que las cajas de texto
-        botonRegistroConsumo.setActionCommand("REGISTRO_CONSUMO");
-        botonRegistroConsumo.setBackground(Color.BLACK);
-        botonRegistroConsumo.setForeground(Color.WHITE); // letras blancas
-        panel.add(botonRegistroConsumo);
+    private void agregarBotonCerrarSesion(){
+        ImageIcon iconoOriginal = new ImageIcon("recursos/salir.png");
+        Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH);
+        ImageIcon iconoSalir = new ImageIcon(imagenEscalada);
+        botonCerrarSesion = new JButton(iconoSalir);
+        botonCerrarSesion.setBounds(445, 10, 26, 26); 
+        botonCerrarSesion.setActionCommand("CERRAR_SESION");
+        botonCerrarSesion.setBackground(Color.BLACK);
+        botonCerrarSesion.setBorderPainted(false);
+        botonCerrarSesion.setFocusPainted(false);
+        botonCerrarSesion.setContentAreaFilled(false);
+        panel.add(botonCerrarSesion);
+    }
+
+    private void agregarBotonEscaner() {
+        // Botón Escaner con imagen en la esquina superior izquierda
+        ImageIcon iconoEscanerOriginal = new ImageIcon("recursos/escaner.png");
+        Image imagenEscaladaEscaner = iconoEscanerOriginal.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+        ImageIcon iconoEscaner = new ImageIcon(imagenEscaladaEscaner);
+        botonEscaner = new JButton(iconoEscaner);
+        botonEscaner.setBounds(10, 10, 32, 32);
+        botonEscaner.setActionCommand("ESCANER");
+        botonEscaner.setBackground(Color.BLACK);
+        botonEscaner.setBorderPainted(false);
+        botonEscaner.setFocusPainted(false);
+        botonEscaner.setContentAreaFilled(false);
+        panel.add(botonEscaner);
     }
 
     public void setControlador(ActionListener controlador) {
         // Set the controller for the buttons
+        botonEscaner.addActionListener(controlador);
         botonVerMonedero.addActionListener(controlador);
         botonConsultarMenu.addActionListener(controlador);
-        botonrRealizarReserva.addActionListener(controlador);
         botonCancelarReservas.addActionListener(controlador);
-        botonSeleccionarTurnoComida.addActionListener(controlador);
-        botonRegistroConsumo.addActionListener(controlador);
+        botonSeleccionarTurnoComida.addActionListener(controlador); 
+        botonCerrarSesion.addActionListener(controlador);
     }
     
+    public void setNombreUsuario(String nombre) {
+        this.nombreUsuario = nombre;
+        actualizarTitulo();
+    }
+
+    private void actualizarTitulo() {
+        JLabel titulo = (JLabel) panel.getComponent(0); // El primer componente es el título
+        if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
+            titulo.setText("¡Bienvenido, " + nombreUsuario + "!");
+        } else {
+            titulo.setText("¡Bienvenido!");
+        }
+    }
 }

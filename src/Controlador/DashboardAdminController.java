@@ -8,10 +8,15 @@ import Vista.DashboardAdmin;
 public class DashboardAdminController implements ActionListener {
     
     private DashboardAdmin vistaDashboardAdmin;
+    private String correoAdmin;
+    private String nombreAdmin;
 
-    public DashboardAdminController() {
-        
+    public DashboardAdminController(String correoAdmin) {
+        this.correoAdmin = correoAdmin;
+        Modelo.Administradores administradores = new Modelo.Administradores();
+        this.nombreAdmin = administradores.getNombreCompleto(correoAdmin);
         vistaDashboardAdmin = new DashboardAdmin();
+        vistaDashboardAdmin.setNombreAdmin(nombreAdmin);
         vistaDashboardAdmin.setVisible(true);
         vistaDashboardAdmin.setControlador((ActionListener)this);   
     }
@@ -22,7 +27,7 @@ public class DashboardAdminController implements ActionListener {
         switch (comando) {
             case "CALCULAR_CCB":
                 vistaDashboardAdmin.setVisible(false);
-                new CalcularCCBController();
+                new CalcularCCBController(correoAdmin);
                 break;
 
             case "GESTIONAR_INSUMOS":
@@ -32,7 +37,7 @@ public class DashboardAdminController implements ActionListener {
 
             case "GESTIONAR_MENU":
                 vistaDashboardAdmin.setVisible(false);
-                //new GestionarMenuController();
+                new GestionarMenuController(correoAdmin);
                 break;
 
             case "ESTABLECER_TURNOS":
@@ -53,6 +58,11 @@ public class DashboardAdminController implements ActionListener {
             case "INGRESO_TARIFA":
                 vistaDashboardAdmin.setVisible(false);
                 //new IngresoTarifaController();
+                break;
+
+            case "CERRAR_SESION":
+                vistaDashboardAdmin.setVisible(false);
+                new ControladorPrincipal();
                 break;
 
             default:

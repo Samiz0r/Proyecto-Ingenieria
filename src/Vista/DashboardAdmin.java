@@ -16,6 +16,8 @@ public class DashboardAdmin extends JFrame {
     JButton botonCalcularConsumo;
     JButton botonGenerarReporte;
     JButton botonIngresoTarifa;
+    JButton botonCerrarSesion;
+    private String nombreAdmin;
 
     public DashboardAdmin() {
         setTitle("Menú de Administrador");
@@ -52,13 +54,14 @@ public class DashboardAdmin extends JFrame {
         int altura = 40; // altura de cada botón
         int espacio = 15; // espacio entre botones
 
-        agregarBotonGestionarInsumos(y); y += altura + espacio;
+        agregarBotonCalcularCCB(y); y += altura + espacio;
         agregarBotonGestionarMenu(y); y += altura + espacio;
-        agregarBotonEstablecerTurnos(y); y += altura + espacio;
+        agregarBotonIngresoTarifa(y); y += altura + espacio;
         agregarBotonCalcularConsumo(y); y += altura + espacio;
         agregarBotonGenerarReporte(y); y += altura + espacio;
-        agregarBotonCalcularCCB(y); y += altura + espacio;
-        agregarBotonIngresoTarifa(y);
+        agregarBotonGestionarInsumos(y); y += altura + espacio;
+        agregarBotonEstablecerTurnos(y); y += altura + espacio;
+        agregarBotonCerrarSesion();
     }
     
     private void agregarSubtitulo(){
@@ -133,8 +136,22 @@ public class DashboardAdmin extends JFrame {
         panel.add(botonIngresoTarifa);
     }
 
+    private void agregarBotonCerrarSesion(){
+        ImageIcon iconoOriginal = new ImageIcon("recursos/salir.png");
+        Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH); 
+        ImageIcon iconoSalir = new ImageIcon(imagenEscalada);
+        botonCerrarSesion = new JButton(iconoSalir);
+        botonCerrarSesion.setBounds(445, 10, 26, 26); 
+        botonCerrarSesion.setActionCommand("CERRAR_SESION");
+        botonCerrarSesion.setBackground(Color.BLACK);
+        botonCerrarSesion.setBorderPainted(false);
+        botonCerrarSesion.setFocusPainted(false);
+        botonCerrarSesion.setContentAreaFilled(false);
+        panel.add(botonCerrarSesion);
+    }
+
     public void setControlador(ActionListener controlador) {
-        // Set the controller for the buttons
+        
         botonCalcularCCB.addActionListener(controlador);
         botonGestionarInsumos.addActionListener(controlador);
         botonGestionarMenu.addActionListener(controlador);
@@ -142,6 +159,20 @@ public class DashboardAdmin extends JFrame {
         botonCalcularConsumo.addActionListener(controlador);
         botonGenerarReporte.addActionListener(controlador);
         botonIngresoTarifa.addActionListener(controlador);
+        botonCerrarSesion.addActionListener(controlador);
     }
     
+    public void setNombreAdmin(String nombre) {
+        this.nombreAdmin = nombre;
+        actualizarTituloAdmin();
+    }
+
+    private void actualizarTituloAdmin() {
+        JLabel titulo = (JLabel) panel.getComponent(0); // El primer componente es el título
+        if (nombreAdmin != null && !nombreAdmin.isEmpty()) {
+            titulo.setText("¡Bienvenido Administrador, " + nombreAdmin + "!");
+        } else {
+            titulo.setText("¡Bienvenido Administrador!");
+        }
+    }
 }

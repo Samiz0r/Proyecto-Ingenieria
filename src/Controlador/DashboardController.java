@@ -8,10 +8,15 @@ import Vista.Dashboard;
 public class DashboardController implements ActionListener {
     
     private Dashboard vistaDashboard;
+    private String correoUsuario;
+    private String nombreUsuario;
 
-    public DashboardController() {
-        
+    public DashboardController(String correoUsuario) {
+        this.correoUsuario = correoUsuario;
+        Modelo.Usuarios usuarios = new Modelo.Usuarios();
+        this.nombreUsuario = usuarios.getNombreCompleto(correoUsuario);
         vistaDashboard = new Dashboard();
+        vistaDashboard.setNombreUsuario(nombreUsuario);
         vistaDashboard.setVisible(true);
         vistaDashboard.setControlador((ActionListener)this);   
     }
@@ -20,20 +25,22 @@ public class DashboardController implements ActionListener {
         String comando = e.getActionCommand();
 
         switch (comando) {
+            case "ESCANER":
+                vistaDashboard.setVisible(false);
+                Modelo.Usuarios usuarios = new Modelo.Usuarios();
+                String cedula = usuarios.getCedula(correoUsuario);
+                new EscanerFotoController(cedula);
+                break;
             case "VER_MONEDERO":
                 vistaDashboard.setVisible(false);
-                new VerMonederoController();
+                new VerMonederoController(correoUsuario);
                 break;
 
             case "CONSULTAR_MENU":
                 vistaDashboard.setVisible(false);
-                //new RegistrarseController();
+                new ConsultarMenuController(correoUsuario);
                 break;
             
-            case "REALIZAR_RESERVA":
-                vistaDashboard.setVisible(false); 
-                //new ReservarController();
-                break;
             
             case "CANCELAR_RESERVAS":
                 vistaDashboard.setVisible(false);
@@ -42,12 +49,12 @@ public class DashboardController implements ActionListener {
 
             case "SELECCIONAR_TURNO_COMIDA":
                 vistaDashboard.setVisible(false);
-                //new SeleccionarTurnoController();
+                new SeleccionarTurnoComidaController(correoUsuario);
                 break;
 
-            case "REGISTRO_CONSUMO":
+            case "CERRAR_SESION":
                 vistaDashboard.setVisible(false);
-                //new RegistroConsumoController();
+                new ControladorPrincipal();
                 break;
 
             default:

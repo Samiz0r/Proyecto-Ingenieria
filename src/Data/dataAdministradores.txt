@@ -1,1 +1,3 @@
 dani@gmailcom;345;daniel gomez;56789
+marcel@gmail;378;Marcel Castro;5674
+josen@gmail.cpm;789;Jose lopez;247895

@@ -26,7 +26,7 @@ public class ControladorPrincipal implements ActionListener {
                 Modelo.Usuarios usuarios = new Modelo.Usuarios();
                 if (usuarios.autenticarUsuario(correo, contrasena)) {
                     vistaInicioSesion.setVisible(false);
-                    new DashboardController();
+                    new DashboardController(correo);
                 } else {
                     javax.swing.JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos", "Error de inicio de sesión", javax.swing.JOptionPane.ERROR_MESSAGE);
                 }
@@ -38,7 +38,7 @@ public class ControladorPrincipal implements ActionListener {
                 Modelo.Administradores administradores = new Modelo.Administradores();
                 if (administradores.autenticarAdministrador(correoAdmin, contrasenaAdmin)) {
                     vistaInicioSesion.setVisible(false);
-                    new DashboardAdminController();
+                    new DashboardAdminController(correoAdmin);
                 } else {
                     javax.swing.JOptionPane.showMessageDialog(null, "Correo o contraseña de administrador incorrectos", "Error de inicio de sesión", javax.swing.JOptionPane.ERROR_MESSAGE);
                 }

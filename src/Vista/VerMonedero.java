@@ -11,6 +11,7 @@ public class VerMonedero extends JFrame {
     JLabel labelSaldo;
     JButton botonVolver;
     JButton botonRecargar;
+    private String correoUsuario;
 
     public VerMonedero() {
         setTitle("Ver Monedero");
@@ -75,9 +76,22 @@ public class VerMonedero extends JFrame {
         botonVolver.addActionListener(controlador);
         botonRecargar.addActionListener(controlador);
     }
+
+    public void setCorreo(String correo) {
+        this.correoUsuario = correo;
+    }
+
+    public String getCorreo() {
+        return correoUsuario;
+    }
     
     
     public void actualizarSaldo(double saldo) {
         labelSaldo.setText("<html>Saldo Disponible:<br><span style='font-size:36px;'>$" + String.format("%.2f", saldo) + "</span></html>");
+    }
+
+    // Permite actualizar el saldo desde el controlador
+    public void setSaldo(double saldo) {
+        actualizarSaldo(saldo);
     }
 }
